@@ -1,0 +1,169 @@
+﻿mysql> create database rutvik;
+Query OK, 1 row affected (0.01 sec)
+
+
+
+
+mysql> show databases;
+
+
+mysql> use rutvik;
+Database changed
+
+
+
+
+mysql> CREATE TABLE EmployeeInfo (
+    -> EmpID INT PRIMARY KEY,
+    -> EmpFname VARCHAR(50),
+    -> EmpLname VARCHAR(50),
+    -> Department VARCHAR(50),
+    -> Project VARCHAR(50),
+    ->  Address VARCHAR(100),
+    -> DOB DATE,
+    ->  Gender VARCHAR(10)
+    -> );
+
+
+
+
+mysql> INSERT INTO EmployeeInfo (EmpID, EmpFname, EmpLname, Department, Project, Address, DOB, Gender)
+    -> VALUES
+    -> (1, 'John', 'Doe', 'HR', 'Project A', '123 Main St', '1990-01-01', 'Male'),
+    -> (2, 'Jane', 'Smith', 'IT', 'Project B', '456 Oak St', '1992-05-15', 'Female'),
+    -> (3, 'Sarah', 'Johnson', 'HR', 'Project C', '789 Elm St', '1985-11-30', 'Female'),
+    -> (5, 'Samantha', 'Williams', 'IT', 'Project E', '202 Cedar St', '1993-07-20', 'Male'),
+    -> (5, 'Samantha', 'rutvik', 'IT', 'Project E', 'pune', '1993-09-10', 'Female');
+Query OK, 5 rows affected (0.03 sec)
+Recordsselect *licates: 0  Warnings: 0
+
+
+mysql> select * from EmployeeInfo;
++-------+----------+----------+------------+-----------+-------------+------------+--------+
+| EmpID | EmpFname | EmpLname | Department | Project   | Address     | DOB        | Gender |
++-------+----------+----------+------------+-----------+-------------+------------+--------+
+|     1 | John     | Doe      | HR         | Project A | 123 Main St | 1990-01-01 | Male   |
+|     2 | Jane     | Smith    | IT         | Project B | 456 Oak St  | 1992-05-15 | Female |
+|     3 | Sarah    | Johnson  | HR         | Project C | 789 Elm St  | 1985-11-30 | Female |
+|     4 | Michael  | Brown    | Finance    | Project D | 101 Pine St | 1988-07-20 | Male   |
+|     5 | Samantha | rutvik   | IT         | Project E | pune        | 1993-09-10 | Female |
++-------+----------+----------+------------+-----------+-------------+------------+--------+
+5 rows in set (0.01 sec)
+
+
+
+
+mysql> CREATE TABLE EmployeePosition (
+    -> EmpID INT,
+    ->  EmpPosition VARCHAR(50),
+    -> DateOfJoining DATE,
+    ->  Salary DECIMAL(10, 2),
+    -> FOREIGN KEY (EmpID) REFERENCES EmployeeInfo(EmpID)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+
+
+
+mysql> INSERT INTO EmployeePosition (EmpID, EmpPosition, DateOfJoining, Salary)
+    -> VALUES
+    -> (1, 'Manager', '2015-01-01', 80000),
+    -> (2, 'Developer', '2017-03-15', 70000),
+    -> (3, 'Manager', '2010-06-20', 90000),
+    -> (4, 'Accountant', '2018-09-01', 60000),
+    -> (5, 'Analyst', '2019-11-10', 85000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+
+
+
+mysql> select * from EmployeePosition;
++-------+-------------+---------------+----------+
+| EmpID | EmpPosition | DateOfJoining | Salary   |
++-------+-------------+---------------+----------+
+|     1 | Manager     | 2015-01-01    | 80000.00 |
+|     2 | Developer   | 2017-03-15    | 70000.00 |
+|     3 | Manager     | 2010-06-20    | 90000.00 |
+|     4 | Accountant  | 2018-09-01    | 60000.00 |
+|     5 | Analyst     | 2019-11-10    | 85000.00 |
++-------+-------------+---------------+----------+
+5 rows in set (0.01 sec)
+
+
+Query -1
+
+
+mysql> select upper(EmpFname) EmpName from EmployeeInfo;
++----------+
+| EmpName  |
++----------+
+| JOHN     |
+| JANE     |
+| SARAH    |
+| MICHAEL  |
+| SAMANTHA |
++----------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+Query -2
+
+
+mysql> select count(*) from EmployeeInfo WHERE Department = 'HR';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.02 sec)
+
+
+
+
+Query -3
+
+
+mysql> select * from EmployeePosition WHERE Salary BETWEEN 70000 AND 100000;
+
+
++-------+-------------+---------------+----------+
+| EmpID | EmpPosition | DateOfJoining | Salary   |
++-------+-------------+---------------+----------+
+|     1 | Manager     | 2015-01-01    | 80000.00 |
+|     2 | Developer   | 2017-03-15    | 70000.00 |
+|     3 | Manager     | 2010-06-20    | 90000.00 |
+|     5 | Analyst     | 2019-11-10    | 85000.00 |
++-------+-------------+---------------+----------+
+4 rows in set (0.01 sec)
+
+
+Query -4
+
+
+mysql> select EmpFname, EmpLname from EmployeeInfo WHERE EmpFname LIKE 'S%';
+
+
++----------+----------+
+| EmpFname | EmpLname |
++----------+----------+
+| Sarah    | Johnson  |
+| Samantha | rutvik   |
++----------+----------+
+2 rows in set (0.01 sec)
+Query -5
+
+
+mysql> select * from EmployeeInfo limit 3;
++-------+----------+----------+------------+-----------+-------------+------------+--------+
+| EmpID | EmpFname | EmpLname | Department | Project   | Address     | DOB        | Gender |
++-------+----------+----------+------------+-----------+-------------+------------+--------+
+|     1 | John     | Doe      | HR         | Project A | 123 Main St | 1990-01-01 | Male   |
+|     2 | Jane     | Smith    | IT         | Project B | 456 Oak St  | 1992-05-15 | Female |
+|     3 | Sarah    | Johnson  | HR         | Project C | 789 Elm St  | 1985-11-30 | Female |
++-------+----------+----------+------------+-----------+-------------+------------+--------+
+3 rows in set (0.00 sec)
